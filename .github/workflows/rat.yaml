@@ -1,0 +1,20 @@
+name: Step 2 - Receive Applicaton Trigger
+on:
+  repository_dispatch:
+    types:
+      - application_push
+
+jobs:
+    receiver-trigger:
+        name: Verify Cross-Repo Communication
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Display Receiver application Information
+            run:  |
+              echo  "Secops Repo receivers Application trigger"
+              echo  "Application Repository: ${{github.event.client_playload.repository}}"
+              echo  "Application Branch: ${{github.event.client_playload.branch}}"
+              echo  "Application Commit SHA: ${{github.event.client_playload.commit_sha}}"
+
+  
