@@ -1,20 +1,31 @@
-name: Step 2 - Receive Applicaton Trigger
+name: Step 2 - Receive Application Trigger
 on:
   repository_dispatch:
     types:
-      - application_push
+        - application_push
 
 jobs:
-    receiver-trigger:
+    receive-trigger:
         name: Verify Cross-Repo Communication
         runs-on: ubuntu-latest
 
         steps:
-          - name: Display Receiver application Information
-            run:  |
-              echo  "Secops Repo receivers Application trigger"
-              echo  "Application Repository: ${{github.event.client_playload.repository}}"
-              echo  "Application Branch: ${{github.event.client_playload.branch}}"
-              echo  "Application Commit SHA: ${{github.event.client_playload.commit_sha}}"
+          - name: Display Received application Information
+            run: |
+              echo "SecOps Repo received Application trigger"
+              echo "Application Repository: ${{github.event.client_payload.repository}}"
+              echo "Application Branch: ${{ github.event.client_payload.branch }}"
+              echo "Application Commit SHA: ${{github.event.client_payload.commit_sha}}"
 
-  
+          - name: Checkout Exact Application Commit
+            uses: actions/checkout@v4
+            with:
+              repository: ${{github.event.client_payload.repository}}
+              ref: ${{github.event.client_payload.commit_sha}}
+              path: application
+
+          - name: Verify Checked Out Commit
+            run: |
+              echo "Application Source Successfully checked out"
+              echo "Checked Out Commit SHA:" 
+              git -C application rev-parse HEAD
