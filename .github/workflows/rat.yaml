@@ -34,10 +34,16 @@ jobs:
             run : |
               docker run --rm \
                 -v "${GITHUB_WORKSPACE}/application:/repo" \
+                -w /repo \
                 ghcr.io/gitleaks/gitleaks:latest \
                 detect \
-                -- source=/repo \
-                -- no-git \
+                --source=/repo \
+                --no-git \
                 --no-banner \
                 --exit-code 1
               
+          - name: step4A - List Scanned Files
+            run: |
+              echo "Files Inside Gitleaks Scaning Scope :"
+              echo "=============================="
+              find application -type f -print
