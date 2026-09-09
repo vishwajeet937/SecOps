@@ -48,3 +48,4 @@ jobs:
           echo "Files Inside Gitleaks Scanning Scope:"
           echo "====================================="
           find application -type f -print
+          
