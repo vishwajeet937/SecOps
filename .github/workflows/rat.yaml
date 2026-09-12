@@ -120,7 +120,7 @@ jobs:
             -Dsonar.sources=/usr/src \
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/coverage/** \
             -Dsonar.host.url=http://localhost:9000 \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${{ secrets.SECOPS_TRIGGER_TOKEN }}
 
       # Uncomment once frontend testing begins
       # - name: Scan Frontend Code
@@ -134,7 +134,7 @@ jobs:
       #       -Dsonar.sources=/usr/src \
       #       -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/coverage/** \
       #       -Dsonar.host.url=http://localhost:9000 \
-      #       -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+      #       -Dsonar.token=${{ secrets.SECOPS_TRIGGER_TOKEN }}
 
       - name: SonarQube Quality Gate
         uses: SonarSource/sonarqube-quality-gate-action@master
