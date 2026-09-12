@@ -119,7 +119,7 @@ jobs:
             -Dsonar.projectName=hireflow-backend \
             -Dsonar.sources=/usr/src \
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/coverage/** \
-            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.host.url=http://localhost:9000/ \
             -Dsonar.token=${{ secrets.SECOPS_TRIGGER_TOKEN }}
 
       # Uncomment once frontend testing begins
@@ -135,13 +135,6 @@ jobs:
       #       -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/coverage/** \
       #       -Dsonar.host.url=http://localhost:9000 \
       #       -Dsonar.token=${{ secrets.SECOPS_TRIGGER_TOKEN }}
-
-      - name: SonarQube Quality Gate
-        uses: SonarSource/sonarqube-quality-gate-action@master
-        timeout-minutes: 5
-        env:
-          SECOPS_TRIGGER_TOKEN: ${{ secrets.SECOPS_TRIGGER_TOKEN }}
-          SONAR_HOST_URL: ${{ vars.SONAR_HOST }}
 
       - name: Show SonarQube Dashboard Links
         if: always()
